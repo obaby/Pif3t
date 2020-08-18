@@ -9,6 +9,8 @@ import requests
 # Create your views here.
 from django.views.decorators.csrf import csrf_exempt
 
+from python_if_this_then_that.settings import API_KEY, API_SECRCT
+
 
 def json_response_message(status, message):
     content = {
@@ -104,16 +106,27 @@ def speech_process(request):
     :param request:
     :return: 处理后的反馈语音信息
     """
+    api_key = api_secret = ''
     if request.method == 'GET':
-        speech = request.GET['speech']
+        try:
+            speech = request.GET['speech']
+            api_key = request.GET['api_key']
+            api_secret = request.GET['api_secret']
+        except:
+            pass
     elif request.method == 'POST':
         try:
             jd = json.loads(request.body)
             speech = jd['speech']
+            api_key = jd['api_key']
+            api_secret = jd['api_secret']
         except:
             speech = ''
     else:
         return json_response_message(status=2, message='错误的请求方法')
+
+    if api_key != API_KEY or api_secret != API_SECRCT:
+        return json_response_message(status=3, message='非法请求')
 
     if len(speech) == 0:
         return json_response_message(status=1, message='您啥都不说，我怎么知道你啥意思？')
