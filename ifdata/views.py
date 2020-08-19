@@ -107,6 +107,7 @@ def speech_process(request):
     :return: 处理后的反馈语音信息
     """
     api_key = api_secret = ''
+    speech = ''
     if request.method == 'GET':
         try:
             speech = request.GET['speech']
@@ -128,6 +129,7 @@ def speech_process(request):
     if api_key != API_KEY or api_secret != API_SECRCT:
         return json_response_message(status=3, message='非法请求')
 
+    speech = speech.replace(' ', '')
     if len(speech) == 0:
         return json_response_message(status=1, message='您啥都不说，我怎么知道你啥意思？')
 
