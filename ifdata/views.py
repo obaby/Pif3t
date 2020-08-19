@@ -41,7 +41,7 @@ def process_action(speech_text, if_this_object_set):
                     global actions
                     no_action_response_text = it.no_action_response_text
                     actions = it.that_action.all()
-                    get_action(speech, it.ifthis_set.all())
+                    get_action(speech, it.ifthis_set.order_by('-priority', 'id'))
                     return no_action_response_text, actions
         if not is_in_cond:
             return '我还不能理解您的意图，去配置更多的规则来处理吧', None
@@ -131,7 +131,7 @@ def speech_process(request):
     if len(speech) == 0:
         return json_response_message(status=1, message='您啥都不说，我怎么知道你啥意思？')
 
-    if_this_set = IfThis.objects.filter(parent=None)
+    if_this_set = IfThis.objects.filter(parent=None).order_by('-priority', 'id')
 
     resp, actions = process_action(speech, if_this_set)
     print(resp)
@@ -141,3 +141,11 @@ def speech_process(request):
     resp = deal_with_actions(actions)
 
     return json_response_message(status=0, message=resp)
+
+
+def home_page(request):
+    variables = {
+        "username": request.user.username,
+        'page_name': '',
+    }
+    return render(request, 'home_page/index.html', variables)

@@ -15,7 +15,7 @@ class ThatActionAdmin(admin.ModelAdmin):
 
 
 class IfThisAdmin(admin.ModelAdmin):
-    list_display = ('name','if_type', 'parent', 'create', 'id', 'describe', 'condition_type', 'key_words', 'no_action_response_text')
+    list_display = ('name','if_type', 'parent','priority', 'create', 'id', 'describe', 'condition_type', 'key_words', 'no_action_response_text')
 
 
 admin.site.register(IFTTTType, IFTTTTypeAdmin)

@@ -58,6 +58,7 @@ class IfThis(models.Model):
     enable = models.BooleanField(default=True, help_text='是否激活')
     no_action_response_text = models.TextField(blank=True, null=True, help_text='未绑定动作反馈文本 随机文本反馈根据换行分割')
     if_type = models.ForeignKey(IFTTTType, blank=True, null=True, on_delete=models.SET_NULL, help_text='条件类型')
+    priority = models.IntegerField(default=0, help_text='检索优先级')
 
     def __unicode__(self):
         return '%(name)s [%(count)s]' % {"name": str(self.name), "count": self.id}

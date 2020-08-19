@@ -21,4 +21,5 @@ from ifdata.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^api/speech-process/$', speech_process),
+    url(r'^$', home_page),
 ]
