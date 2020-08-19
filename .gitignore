@@ -1,3 +1,4 @@
 .idea/
 venv3_home_mini/
 *.pyc
+db.sqlite3
