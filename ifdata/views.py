@@ -46,7 +46,7 @@ def process_action(speech_text, if_this_object_set):
         if not is_in_cond:
             return '我还不能理解您的意图，去配置更多的规则来处理吧', None
 
-    nrt, actx = get_action(speech_text, if_this_object_set)
+    nrt, actx = get_action(str(speech_text).replace(' ', ''), if_this_object_set)
     print('-' * 130)
     return nrt, actx
 
